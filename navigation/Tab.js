@@ -2,6 +2,9 @@ import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Home from '../Screens/Home';
 import {Image} from 'react-native';
+import Recipe from '../Screens/Recipe';
+import WishList from '../Screens/WishList';
+import User from '../Screens/User';
 
 const Tabs = createBottomTabNavigator();
 
@@ -13,7 +16,7 @@ const Tab = () => {
         options={{
           tabBarIcon: ({focused}) => (
             <Image
-              source={require('../assets/icons/cutlery.png')}
+              source={require('../assests/icons/cutlery.png')}
               resizeMode="contain"
               style={{
                 width: 25,
@@ -25,9 +28,8 @@ const Tab = () => {
         }}
         component={Home}
       />
-      <Tabs.Screen name="Recipe" component={Home} />
-      <Tabs.Screen name="WishList" component={Home} />
-      <Tabs.Screen name="User" component={Home} />
+      <Tabs.Screen name="WishList" component={WishList} />
+      <Tabs.Screen name="User" component={User} />
     </Tabs.Navigator>
   );
 };
