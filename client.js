@@ -1,8 +1,8 @@
 const API_KEY = '12bcc70cb97217567c312085071f6b94';
 const API_APP_ID = '3d19e675';
 
-export const getRecipeByQuery = (query) => {
-  const URL = `https://api.edamam.com/search?q=${query}&app_id=${API_APP_ID}&app_key=${API_KEY}`;
+export const getRecipeByQuery = (query, from = 0, to = 10) => {
+  const URL = `https://api.edamam.com/search?q=${query}&app_id=${API_APP_ID}&app_key=${API_KEY}&from=${from}&to=${to}`;
   return fetch(URL, {
     method: 'GET',
   })
