@@ -17,14 +17,18 @@ const BlockCard = ({data, totalLen}) => {
 
   return (
     <TouchableOpacity style={styles.blockCardContainer}>
+      <View style={styles.blockCardContainerView}>
+        <Text style={styles.count}>
+          {data.index}
+          <Text style={{fontWeight: 'normal', fontSize: 16}}>/{totalLen}</Text>
+        </Text>
+      </View>
       <Image
-        style={styles.countImage}
-        source={require('../assests/icons/count.jpg')}
+        resizeMode="cover"
+        source={{uri: recipe.image}}
+        style={styles.blockCardImage}
       />
-      <Text style={styles.count}>
-        {data.index}/{totalLen}
-      </Text>
-      <Image source={{uri: recipe.image}} style={styles.blockCardImage} />
+      <Text style={styles.label}>{recipe.label}</Text>
     </TouchableOpacity>
   );
 };
@@ -49,27 +53,51 @@ const styles = StyleSheet.create({
   },
   blockCardContainer: {
     marginRight: 20,
+    borderRadius: 20,
+    marginLeft: 10,
+    shadowRadius: 20,
+    shadowOpacity: 99,
+    elevation: 18,
     alignItems: 'center',
+  },
+  label: {
+    position: 'absolute',
+    bottom: 0,
+    color: 'white',
+    width: '100%',
+    paddingBottom: 20,
+    left: 0,
+    fontWeight: 'bold',
+    elevation: 20,
+    fontSize: 25,
+    paddingLeft: 15,
+    backgroundColor: 'rgba(52, 52, 52, 0.8)',
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
   },
   blockCardImage: {
     width: width - 100,
     borderRadius: 20,
-
     height: height / 1.7,
   },
-  count: {
+  blockCardContainerView: {
     position: 'absolute',
-    top: 20,
-    right: 30,
+    flexDirection: 'row',
+    width: '100%',
+    backgroundColor: 'rgba(52, 52, 52, 0.8)',
     zIndex: 1,
+    height: 50,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    paddingVertical: 13,
   },
-  countImage: {
+  count: {
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 21,
     position: 'absolute',
-    top: 20,
-    right: 90,
-    zIndex: 1,
-    width: 20,
-    height: 20,
+    right: 19,
+    top: 10,
   },
 });
 
