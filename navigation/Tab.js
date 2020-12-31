@@ -1,7 +1,7 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Home from '../Screens/Home';
-import {Image} from 'react-native';
+import {Image, StyleSheet, Text} from 'react-native';
 import Recipe from '../Screens/Recipe';
 import WishList from '../Screens/WishList';
 import User from '../Screens/User';
@@ -10,7 +10,7 @@ const Tabs = createBottomTabNavigator();
 
 const Tab = () => {
   return (
-    <Tabs.Navigator>
+    <Tabs.Navigator initialRouteName="Home">
       <Tabs.Screen
         name="Home"
         options={{
@@ -25,11 +25,71 @@ const Tab = () => {
               }}
             />
           ),
+          tabBarLabel: ({focused}) => (
+            <Text
+              style={{
+                color: focused ? 'black' : '#CDCDD2',
+                fontSize: 10,
+                fontWeight: focused ? 'bold' : 'normal',
+              }}>
+              Home
+            </Text>
+          ),
         }}
         component={Home}
       />
-      <Tabs.Screen name="WishList" component={WishList} />
-      <Tabs.Screen name="User" component={User} />
+      <Tabs.Screen
+        name="WishList"
+        options={{
+          tabBarIcon: ({focused}) => (
+            <Image
+              source={require('../assests/icons/like.png')}
+              style={{
+                width: 25,
+                height: 25,
+                tintColor: focused ? '#FC6D3F' : '#CDCDD2',
+              }}
+            />
+          ),
+          tabBarLabel: ({focused}) => (
+            <Text
+              style={{
+                color: focused ? 'black' : '#CDCDD2',
+                fontSize: 10,
+                fontWeight: focused ? 'bold' : 'normal',
+              }}>
+              Wish List
+            </Text>
+          ),
+        }}
+        component={WishList}
+      />
+      <Tabs.Screen
+        name="User"
+        options={{
+          tabBarIcon: ({focused}) => (
+            <Image
+              source={require('../assests/icons/user.png')}
+              style={{
+                width: 25,
+                height: 25,
+                tintColor: focused ? '#FC6D3F' : '#CDCDD2',
+              }}
+            />
+          ),
+          tabBarLabel: ({focused}) => (
+            <Text
+              style={{
+                color: focused ? 'black' : '#CDCDD2',
+                fontSize: 10,
+                fontWeight: focused ? 'bold' : 'normal',
+              }}>
+              Profile
+            </Text>
+          ),
+        }}
+        component={User}
+      />
     </Tabs.Navigator>
   );
 };
