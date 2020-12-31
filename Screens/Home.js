@@ -25,7 +25,6 @@ const Home = () => {
   useEffect(() => {
     getRecipeByQuery('Mutton', 0, to)
       .then(({hits}) => {
-        console.log(hits);
         setRecipes(hits);
         setLoading(false);
       })
@@ -54,6 +53,8 @@ const styles = StyleSheet.create({
   title: {
     fontWeight: 'bold',
     fontSize: 28,
+    marginBottom: 12,
+    marginLeft: 12,
   },
 });
 

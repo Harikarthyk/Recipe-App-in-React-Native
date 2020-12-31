@@ -8,19 +8,25 @@ import {
   Dimensions,
 } from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import {useNavigation} from '@react-navigation/native';
 
 const {width} = Dimensions.get('window');
 const {height} = Dimensions.get('window');
 
 const BlockCard = ({data, totalLen}) => {
   const {recipe} = data.item;
+  const navigation = useNavigation();
 
   return (
-    <TouchableOpacity style={styles.blockCardContainer}>
+    <TouchableOpacity
+      style={styles.blockCardContainer}
+      onPress={() => {
+        navigation.navigate('Recipe', {data: data.item, index : data.index+1 ,  totalLen: totalLen});
+      }}>
       <View style={styles.blockCardContainerView}>
         <Text style={styles.count}>
-          {data.index}
-          <Text style={{fontWeight: 'normal', fontSize: 16}}>/{totalLen}</Text>
+          {data.index + 1}
+          <Text style={{fontWeight: 'normal', fontSize: 14}}>/{totalLen}</Text>
         </Text>
       </View>
       <Image
@@ -63,6 +69,8 @@ const styles = StyleSheet.create({
   label: {
     position: 'absolute',
     bottom: 0,
+    minHeight: 80,
+    alignItems: 'center',
     color: 'white',
     width: '100%',
     paddingBottom: 20,
