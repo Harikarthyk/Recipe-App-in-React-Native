@@ -84,7 +84,7 @@ const Tab = () => {
                 fontSize: 10,
                 fontWeight: focused ? 'bold' : 'normal',
               }}>
-              Profile
+              About
             </Text>
           ),
         }}
