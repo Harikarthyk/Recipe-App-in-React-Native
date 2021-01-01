@@ -38,7 +38,12 @@ const Home = () => {
     <KeyboardAvoidingView
       // behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={styles.contianer}>
-      <SearchModel query={query} setQuery={setQuery} setRecipes={setRecipes} />
+      <SearchModel
+        query={query}
+        setQuery={setQuery}
+        setLoading={setLoading}
+        setRecipes={setRecipes}
+      />
       <View style={styles.contentContainer}>
         <Text style={styles.title}>Recipiee</Text>
         <Recipe data={recipes} />

@@ -2,14 +2,16 @@ import React from 'react';
 import {Image, StyleSheet, TextInput, View} from 'react-native';
 import {getRecipeByQuery} from '../client';
 
-function SearchModel({query, setQuery, setRecipes}) {
+function SearchModel({query, setQuery, setRecipes, setLoading}) {
   const handleSearchRecipe = () => {
+    setLoading(true);
     getRecipeByQuery(query, 0, 20)
       .then(({hits}) => {
         if (!hits) {
           return;
         }
         setRecipes(hits);
+        setLoading(false);
       })
       .catch((error) => console.error(error));
   };

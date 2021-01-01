@@ -18,22 +18,27 @@ const WishList = () => {
   const [recipe, setRecipe] = useState([]);
   const isFocused = useIsFocused();
   const navigation = useNavigation();
-
   const minsToHours = (min) => {
     let hr = Math.round(Number(min / 60));
     min = Math.round(Number(min % 60));
     return `${hr} hr ${min} min`;
   };
+  const getAllItem = async () => {
+    try {
+      const preValue =
+        JSON.parse(await AsyncStorage.getItem('@recipe_app_14')) || [];
+      setRecipe(preValue);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const removeFromList = async (item) => {
+    let newRecipes = recipe.filter((data) => data.label !== item);
+    await AsyncStorage.setItem('@recipe_app_14', JSON.stringify(newRecipes));
+    getAllItem();
+  };
+
   useEffect(() => {
-    const getAllItem = async () => {
-      try {
-        const preValue =
-          JSON.parse(await AsyncStorage.getItem('@recipe_app_14')) || [];
-        setRecipe(preValue);
-      } catch (error) {
-        console.error(error);
-      }
-    };
     getAllItem();
   }, [isFocused]);
   return (
@@ -116,7 +121,8 @@ const WishList = () => {
                       </Text>
                     </View>
                   </View>
-                  <View
+
+                  <TouchableOpacity
                     style={{
                       flexDirection: 'row',
                       alignItems: 'center',
@@ -124,7 +130,8 @@ const WishList = () => {
                       padding: 3,
                       borderRadius: 6,
                       elevation: 5,
-                    }}>
+                    }}
+                    onPress={() => removeFromList(item.label)}>
                     <MIcon
                       name="restore-from-trash"
                       size={25}
@@ -139,7 +146,7 @@ const WishList = () => {
                       }}>
                       Remove from WishList
                     </Text>
-                  </View>
+                  </TouchableOpacity>
                 </View>
               </TouchableOpacity>
             );
