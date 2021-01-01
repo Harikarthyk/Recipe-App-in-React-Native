@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Dimensions, StyleSheet, Text, View} from 'react-native';
-import {ScrollView} from 'react-native-gesture-handler';
+import {Dimensions, ScrollView, StyleSheet, Text, View} from 'react-native';
 import {useIsFocused} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -37,7 +36,7 @@ const WishList = () => {
           </Text>
         </View>
       ) : (
-        <Text>{JSON.stringify(recipe)}</Text>
+        <ScrollView></ScrollView>
       )}
     </ScrollView>
   );

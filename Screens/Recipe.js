@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Dimensions, Image, Linking, StyleSheet, Text, View} from 'react-native';
 import {
   FlatList,
@@ -9,6 +9,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import MIcon from 'react-native-vector-icons/MaterialIcons';
 import {useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useIsFocused} from '@react-navigation/native';
 
 //Dimensions
 const {width} = Dimensions.get('window');
@@ -16,16 +17,36 @@ const {height} = Dimensions.get('window');
 
 const Recipe = ({route}) => {
   const navigation = useNavigation();
+  const isFocused = useIsFocused();
+  const [isAdded, setIsAdded] = useState(false);
   const {recipe} = route.params.data;
   const {totalLen} = route.params;
   const {index} = route.params;
-
+  useEffect(() => {
+    getAllItem();
+  }, [isFocused]);
+  const getAllItem = async () => {
+    let check = false;
+    const preValue =
+      JSON.parse(await AsyncStorage.getItem('@recipe_app_14')) || [];
+    for (let i = 0; i < preValue.length; i++) {
+      if (preValue[i].label === recipe.label) {
+        check = true;
+        break;
+      }
+    }
+    if (check) {
+      setIsAdded(true);
+    }
+  };
   const addToLocalStorage = async () => {
     try {
       const preValue =
         JSON.parse(await AsyncStorage.getItem('@recipe_app_14')) || [];
+
       preValue.push(recipe);
       const jsonValue = JSON.stringify(preValue);
+      setIsAdded(true);
       await AsyncStorage.setItem('@recipe_app_14', jsonValue);
     } catch (error) {
       console.error(error);
@@ -105,24 +126,44 @@ const Recipe = ({route}) => {
             </Text>
           </View>
         </View>
-        <TouchableOpacity
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            backgroundColor: '#fff',
-            marginHorizontal: 30,
-            padding: 15,
-            justifyContent: 'center',
-            marginVertical: 20,
-            elevation: 3,
-            borderRadius: 7,
-          }}
-          onPress={addToLocalStorage}>
-          <Text style={{marginRight: 12, fontWeight: 'bold', fontSize: 16}}>
-            Add to WishList
-          </Text>
-          <Icon name="heart-o" size={25} color="#2DC268" />
-        </TouchableOpacity>
+        {isAdded ? (
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              backgroundColor: '#fff',
+              marginHorizontal: 30,
+              padding: 15,
+              justifyContent: 'center',
+              marginVertical: 20,
+              elevation: 3,
+              borderRadius: 7,
+            }}>
+            <Text style={{marginRight: 12, fontWeight: 'bold', fontSize: 16}}>
+              Recipee WishListed
+            </Text>
+            <Icon name="heart" size={25} color="#2DC268" />
+          </View>
+        ) : (
+          <TouchableOpacity
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              backgroundColor: '#fff',
+              marginHorizontal: 30,
+              padding: 15,
+              justifyContent: 'center',
+              marginVertical: 20,
+              elevation: 3,
+              borderRadius: 7,
+            }}
+            onPress={addToLocalStorage}>
+            <Text style={{marginRight: 12, fontWeight: 'bold', fontSize: 16}}>
+              Add to WishList
+            </Text>
+            <Icon name="heart-o" size={25} color="#2DC268" />
+          </TouchableOpacity>
+        )}
         <Text style={styles.subContentCooking}>Nutrition Information </Text>
         <View style={styles.flatLists}>
           <View
