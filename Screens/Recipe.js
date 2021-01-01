@@ -87,7 +87,6 @@ const Recipe = ({route}) => {
             </Text>
           </Text>
         </View>
-        {console.log(recipe)}
         <Image
           resizeMode="contain"
           style={styles.image}

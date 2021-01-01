@@ -5,9 +5,10 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from 'react-native';
-import {useIsFocused} from '@react-navigation/native';
+import {useIsFocused, useNavigation} from '@react-navigation/native';
 import MIcon from 'react-native-vector-icons/MaterialIcons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -16,6 +17,7 @@ const {height} = Dimensions.get('window');
 const WishList = () => {
   const [recipe, setRecipe] = useState([]);
   const isFocused = useIsFocused();
+  const navigation = useNavigation();
 
   const minsToHours = (min) => {
     let hr = Math.round(Number(min / 60));
@@ -35,7 +37,7 @@ const WishList = () => {
     getAllItem();
   }, [isFocused]);
   return (
-    <ScrollView style={styles.container}>
+    <View style={styles.container}>
       <Text style={styles.title}>Your Wish List </Text>
       {recipe.length === 0 ? (
         <View
@@ -52,7 +54,14 @@ const WishList = () => {
         <ScrollView style={{marginTop: 10}}>
           {recipe.map((item, index) => {
             return (
-              <View
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate('Recipe', {
+                    data: {recipe: item},
+                    index: index + 1,
+                    totalLen: recipe.length,
+                  })
+                }
                 key={index}
                 style={{
                   flex: 1,
@@ -63,9 +72,7 @@ const WishList = () => {
                   borderRadius: 9,
                   elevation: 9,
                 }}>
-                {/* <View style={}> */}
                 <Image source={{uri: item.image}} style={[styles.image]} />
-                {/* </View> */}
                 <View style={[{flex: 0.6}]}>
                   <Text
                     style={{
@@ -109,13 +116,37 @@ const WishList = () => {
                       </Text>
                     </View>
                   </View>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      backgroundColor: '#2DC268',
+                      padding: 3,
+                      borderRadius: 6,
+                      elevation: 5,
+                    }}>
+                    <MIcon
+                      name="restore-from-trash"
+                      size={25}
+                      color="#fff"
+                      style={{marginRight: 2}}
+                    />
+                    <Text
+                      style={{
+                        fontWeight: 'bold',
+                        color: '#fff',
+                        fontSize: 13,
+                      }}>
+                      Remove from WishList
+                    </Text>
+                  </View>
                 </View>
-              </View>
+              </TouchableOpacity>
             );
           })}
         </ScrollView>
       )}
-    </ScrollView>
+    </View>
   );
 };
 
@@ -127,7 +158,8 @@ const styles = StyleSheet.create({
   },
   title: {
     fontWeight: 'bold',
-    fontSize: 22,
+    fontSize: 23,
+    marginLeft: 10,
   },
   empty: {
     color: 'grey',
