@@ -16,12 +16,16 @@ const {height} = Dimensions.get('window');
 const BlockCard = ({data, totalLen}) => {
   const {recipe} = data.item;
   const navigation = useNavigation();
-
+  if (!recipe) return <Text>Error</Text>;
   return (
     <TouchableOpacity
       style={styles.blockCardContainer}
       onPress={() => {
-        navigation.navigate('Recipe', {data: data.item, index : data.index+1 ,  totalLen: totalLen});
+        navigation.navigate('Recipe', {
+          data: data.item,
+          index: data.index + 1,
+          totalLen: totalLen,
+        });
       }}>
       <View style={styles.blockCardContainerView}>
         <Text style={styles.count}>
@@ -29,17 +33,28 @@ const BlockCard = ({data, totalLen}) => {
           <Text style={{fontWeight: 'normal', fontSize: 14}}>/{totalLen}</Text>
         </Text>
       </View>
-      <Image
-        resizeMode="cover"
-        source={{uri: recipe.image}}
-        style={styles.blockCardImage}
-      />
-      <Text style={styles.label}>{recipe.label}</Text>
+      {recipe && recipe.image ? (
+        <Image
+          resizeMode="cover"
+          source={{uri: recipe.image}}
+          style={styles.blockCardImage}
+        />
+      ) : (
+        <Image
+          resizeMode="cover"
+          source={require('../assests/icons/food.jpg')}
+          style={styles.blockCardImage}
+        />
+      )}
+
+      <Text style={styles.label} numberOfLines={3}>
+        {recipe.label}
+      </Text>
     </TouchableOpacity>
   );
 };
-
 function Recipe({data}) {
+  if (!data) return <Text>Nope.. : (</Text>;
   return (
     <View style={styles.container}>
       <FlatList

@@ -16,15 +16,19 @@ import SearchModel from '../Components/SearchModel';
 import Recipe from '../Components/Recipe';
 
 const Home = () => {
-  const [to, setTo] = useState(5);
+  // const [to, setTo] = useState(5);
   const [recipes, setRecipes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [query, setQuery] = useState('');
   // const isFocused = useIsFocused();
 
   useEffect(() => {
-    getRecipeByQuery('Mutton', 0, to)
+    getRecipeByQuery(query.length === 0 ? 'Trending' : query, 0, 20)
       .then(({hits}) => {
+        if (!hits) {
+          return;
+        }
+        // hits.push({type: 'more'});
         setRecipes(hits);
         setLoading(false);
       })
@@ -32,13 +36,16 @@ const Home = () => {
   }, []);
   return (
     <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      // behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={styles.contianer}>
-      <SearchModel query={query} setQuery={setQuery} />
+      <SearchModel query={query} setQuery={setQuery} setRecipes={setRecipes} />
       <View style={styles.contentContainer}>
         <Text style={styles.title}>Recipiee</Text>
         <Recipe data={recipes} />
       </View>
+      {/* <View style={styles.filter}>
+        <Text>Filter</Text>
+      </View> */}
     </KeyboardAvoidingView>
   );
 };

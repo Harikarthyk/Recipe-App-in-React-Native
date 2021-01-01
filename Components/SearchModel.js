@@ -1,8 +1,18 @@
 import React from 'react';
 import {Image, StyleSheet, TextInput, View} from 'react-native';
+import {getRecipeByQuery} from '../client';
 
-function SearchModel() {
-  const handleSearchRecipe = () => {};
+function SearchModel({query, setQuery, setRecipes}) {
+  const handleSearchRecipe = () => {
+    getRecipeByQuery(query, 0, 20)
+      .then(({hits}) => {
+        if (!hits) {
+          return;
+        }
+        setRecipes(hits);
+      })
+      .catch((error) => console.error(error));
+  };
   return (
     <View style={styles.searchSection}>
       <Image
@@ -10,6 +20,8 @@ function SearchModel() {
         style={styles.searchIcon}
       />
       <TextInput
+        value={query}
+        onChangeText={(e) => setQuery(e)}
         placeholderTextColor="#A5ACAE"
         style={styles.input}
         onSubmitEditing={handleSearchRecipe}
