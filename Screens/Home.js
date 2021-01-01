@@ -5,9 +5,10 @@ import {
   StyleSheet,
   Text,
   KeyboardAvoidingView,
-  Platform,
   View,
+  TouchableOpacity,
 } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
 // import {useIsFocused} from '@react-navigation/native';
 
 //Import Components
@@ -48,17 +49,27 @@ const Home = () => {
         <Text style={styles.title}>Recipiee</Text>
         <Recipe data={recipes} />
       </View>
-      {/* <View style={styles.filter}>
-        <Text>Filter</Text>
-      </View> */}
+      <TouchableOpacity style={styles.filter}>
+        <Icon name="layers" color="#fff" size={20} />
+        <Text
+          style={{
+            color: 'white',
+            fontWeight: 'bold',
+            fontSize: 17,
+            marginLeft: 10,
+          }}>
+          Filter
+        </Text>
+      </TouchableOpacity>
     </KeyboardAvoidingView>
   );
 };
 
 const styles = StyleSheet.create({
-  contianer: {},
+  contianer: {
+    padding: 20,
+  },
   contentContainer: {
-    paddingHorizontal: 25,
     paddingBottom: 10,
     justifyContent: 'center',
   },
@@ -67,6 +78,17 @@ const styles = StyleSheet.create({
     fontSize: 28,
     marginBottom: 12,
     marginLeft: 12,
+  },
+  filter: {
+    backgroundColor: '#2DC268',
+    flexDirection: 'row',
+    width: 120,
+    marginLeft: 12,
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    alignItems: 'center',
+    elevation: 2,
+    borderRadius: 10,
   },
 });
 

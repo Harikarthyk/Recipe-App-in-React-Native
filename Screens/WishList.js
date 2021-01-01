@@ -41,6 +41,7 @@ const WishList = () => {
   useEffect(() => {
     getAllItem();
   }, [isFocused]);
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Your Wish List </Text>
