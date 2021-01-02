@@ -20,7 +20,10 @@ export const filterSearch = (
   caloriesTo,
   health,
 ) => {
-  const URL = `https://api.edamam.com/search?q=${query}&app_id=${API_APP_ID}&app_key=${API_KEY}&from=${from}&to=${to}&calories=${caloriesFrom}-${caloriesTo}&health=${health}`;
+  let URL = `https://api.edamam.com/search?q=${query}&app_id=${API_APP_ID}&app_key=${API_KEY}&from=${from}&to=${to}&calories=${caloriesFrom}-${caloriesTo}&health=${health}`;
+
+  if (query === 'All' || query === 'Trending' || health === 'balanced')
+    URL = `https://api.edamam.com/search?q=${query}&app_id=${API_APP_ID}&app_key=${API_KEY}&from=${from}&to=${to}&calories=${caloriesFrom}-${caloriesTo}`;
   return fetch(URL, {
     method: 'GET',
   })

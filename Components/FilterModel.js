@@ -19,15 +19,20 @@ function FilterModel({
   setCalories,
   health,
   setHealth,
+  setQuery,
   to,
   setTo,
 }) {
   const filterResult = () => {
+    console.log('Helo');
     filterSearch(query, 0, to, 0, calories, health)
-      .then(({hits}) => {
+      .then((data) => {
+        console.log(data, query);
+        const {hits} = data;
         if (!hits) {
           return;
         }
+        console.log(hits);
         setRecipes(hits);
         setLoading(false);
         setShowFilter(false);
@@ -50,6 +55,7 @@ function FilterModel({
             onPress={() => {
               setCalories(1500);
               setTo(10);
+              setQuery('All');
               ToastAndroid.showWithGravityAndOffset(
                 'Filter Reseted 👍🏼',
                 ToastAndroid.LONG,
@@ -62,7 +68,7 @@ function FilterModel({
             Reset
           </Text>
           <Text style={[styles.text]} onPress={filterResult}>
-            Go{' '}
+            Go
           </Text>
         </View>
         <TouchableOpacity
@@ -234,12 +240,12 @@ function FilterModel({
         <TouchableOpacity
           style={[
             styles.filterButton,
-            health === ''
+            health === 'balanced'
               ? {backgroundColor: '#2DC268'}
               : {backgroundColor: '#B0B1B3'},
           ]}
-          onPress={() => setHealth('')}>
-          <Text style={styles.filterButtonText}>All </Text>
+          onPress={() => setHealth('balanced')}>
+          <Text style={styles.filterButtonText}>Balanced </Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[
@@ -258,6 +264,8 @@ function FilterModel({
             health === 'immuno-supportive'
               ? {backgroundColor: '#2DC268'}
               : {backgroundColor: '#B0B1B3'},
+            ,
+            {paddingHorizontal: 5},
           ]}
           onPress={() => setHealth('immuno-supportive')}>
           <Text style={styles.filterButtonText}>Immune-Supportive</Text>

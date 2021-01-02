@@ -5,7 +5,7 @@ import {getRecipeByQuery} from '../client';
 function SearchModel({query, setQuery, setRecipes, setLoading}) {
   const handleSearchRecipe = () => {
     setLoading(true);
-    getRecipeByQuery(query, 0, 20)
+    getRecipeByQuery(query.length === 0 ? 'All' : query, 0, 10)
       .then(({hits}) => {
         if (!hits) {
           return;
