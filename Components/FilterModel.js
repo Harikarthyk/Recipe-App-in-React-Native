@@ -1,15 +1,39 @@
 import React, {useState} from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  ToastAndroid,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {Slider} from 'react-native';
+import {filterSearch} from '../client';
 
-function FilterModel({setShowFilter, setRecipes}) {
-  const [calories, setCalories] = useState(1500);
-  const [isCal, setIsCal] = useState(false);
-  // const [from,setFrom] = useState(0) ;
-  const [health, setHealth] = useState('');
-  const [to, setTo] = useState(20);
-  const filterResult = () => {};
+function FilterModel({
+  setShowFilter,
+  setRecipes,
+  query,
+  setLoading,
+  calories,
+  setCalories,
+  health,
+  setHealth,
+  to,
+  setTo,
+}) {
+  const filterResult = () => {
+    filterSearch(query, 0, to, 0, calories, health)
+      .then(({hits}) => {
+        if (!hits) {
+          return;
+        }
+        setRecipes(hits);
+        setLoading(false);
+        setShowFilter(false);
+      })
+      .catch((error) => console.error(error));
+  };
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -26,10 +50,19 @@ function FilterModel({setShowFilter, setRecipes}) {
             onPress={() => {
               setCalories(1000);
               setTo(20);
+              ToastAndroid.showWithGravityAndOffset(
+                'Filter Reseted 👍🏼',
+                ToastAndroid.LONG,
+                ToastAndroid.BOTTOM,
+                15,
+                220,
+              );
             }}>
             Reset
           </Text>
-          <Text style={[styles.text]}>Go </Text>
+          <Text style={[styles.text]} onPress={filterResult}>
+            Go{' '}
+          </Text>
         </View>
         <TouchableOpacity
           style={{position: 'absolute', right: 20, top: 20}}
@@ -95,7 +128,6 @@ function FilterModel({setShowFilter, setRecipes}) {
             minimumTrackTintColor="#DDDDDD"
             maximumTrackTintColor="#2DC268"
             onValueChange={(e) => {
-              setIsCal(true);
               setCalories(e);
             }}
           />
@@ -201,6 +233,16 @@ function FilterModel({setShowFilter, setRecipes}) {
         <TouchableOpacity
           style={[
             styles.filterButton,
+            health === ''
+              ? {backgroundColor: '#2DC268'}
+              : {backgroundColor: '#B0B1B3'},
+          ]}
+          onPress={() => setHealth('')}>
+          <Text style={styles.filterButtonText}>All </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[
+            styles.filterButton,
             health === 'vegetarian'
               ? {backgroundColor: '#2DC268'}
               : {backgroundColor: '#B0B1B3'},
@@ -212,22 +254,49 @@ function FilterModel({setShowFilter, setRecipes}) {
         <TouchableOpacity
           style={[
             styles.filterButton,
-            health === 'non-vegetarian'
+            health === 'immuno-supportive'
               ? {backgroundColor: '#2DC268'}
               : {backgroundColor: '#B0B1B3'},
           ]}
-          onPress={() => setHealth('non-vegetarian')}>
-          <Text style={styles.filterButtonText}>Non-veg</Text>
+          onPress={() => setHealth('immuno-supportive')}>
+          <Text style={styles.filterButtonText}>Immune-Supportive</Text>
+        </TouchableOpacity>
+      </View>
+      <View
+        style={{
+          padding: 20,
+          flexDirection: 'row',
+          justifyContent: 'space-evenly',
+        }}>
+        <TouchableOpacity
+          style={[
+            styles.filterButton,
+            health === 'No-oil-added'
+              ? {backgroundColor: '#2DC268'}
+              : {backgroundColor: '#B0B1B3'},
+          ]}
+          onPress={() => setHealth('No-oil-added')}>
+          <Text style={styles.filterButtonText}>Oil-free</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[
             styles.filterButton,
-            health === ''
+            health === 'wheat-free'
               ? {backgroundColor: '#2DC268'}
               : {backgroundColor: '#B0B1B3'},
           ]}
-          onPress={() => setHealth('')}>
-          <Text style={styles.filterButtonText}>All </Text>
+          onPress={() => setHealth('wheat-free')}>
+          <Text style={styles.filterButtonText}>Wheat-free</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[
+            styles.filterButton,
+            health === 'dairy-free'
+              ? {backgroundColor: '#2DC268'}
+              : {backgroundColor: '#B0B1B3'},
+          ]}
+          onPress={() => setHealth('dairy-free')}>
+          <Text style={styles.filterButtonText}>Dairy-free</Text>
         </TouchableOpacity>
       </View>
     </View>

@@ -26,12 +26,15 @@ const Home = () => {
   const [recipes, setRecipes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [query, setQuery] = useState('');
+  const [calories, setCalories] = useState(1500);
+  const [health, setHealth] = useState('');
+  const [to, setTo] = useState(10);
   // const isFocused = useIsFocused();
 
   const [showFilter, setShowFilter] = useState(false);
 
   useEffect(() => {
-    getRecipeByQuery(query.length === 0 ? 'Trending' : query, 0, 20)
+    getRecipeByQuery(query.length === 0 ? 'Trending' : query, 0, 10)
       .then(({hits}) => {
         if (!hits) {
           return;
@@ -79,7 +82,18 @@ const Home = () => {
       )}
       {showFilter ? (
         <View style={styles.modelFilter}>
-          <FilterModel setRecipes={setRecipes} setShowFilter={setShowFilter} />
+          <FilterModel
+            setRecipes={setRecipes}
+            query={query.length === 0 ? 'Trending' : query}
+            setShowFilter={setShowFilter}
+            setLoading={setLoading}
+            calories={calories}
+            setCalories={setCalories}
+            to={to}
+            setTo={setTo}
+            health={health}
+            setHealth={setHealth}
+          />
         </View>
       ) : (
         <Text></Text>
