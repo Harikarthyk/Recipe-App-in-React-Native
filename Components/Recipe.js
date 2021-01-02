@@ -70,7 +70,7 @@ function Recipe({data}) {
 
 const styles = StyleSheet.create({
   container: {
-    marginVertical: 20,
+    marginVertical: 10,
   },
   blockCardContainer: {
     marginRight: 20,
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
   blockCardImage: {
     width: width - 100,
     borderRadius: 20,
-    height: height / 1.7,
+    height: height / 1.8,
   },
   blockCardContainerView: {
     position: 'absolute',

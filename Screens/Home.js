@@ -57,7 +57,7 @@ const Home = () => {
         setRecipes={setRecipes}
       />
       <View style={[styles.contentContainer]}>
-        <Text style={styles.title}>Recipiee</Text>
+        <Text style={[styles.title]}>Recipiee</Text>
         {loading ? <Text>Loading...</Text> : <Recipe data={recipes} />}
       </View>
       {!showFilter ? (
@@ -106,17 +106,19 @@ const Home = () => {
 const styles = StyleSheet.create({
   contianer: {
     padding: 20,
+    flex: 1,
     position: 'relative',
+    justifyContent: 'space-evenly',
   },
   contentContainer: {
-    paddingBottom: 10,
+    // paddingBottom: 10,
     justifyContent: 'center',
   },
   title: {
     fontWeight: 'bold',
     fontSize: 28,
-    marginBottom: 12,
     marginLeft: 12,
+    marginBottom: 8,
   },
   filter: {
     backgroundColor: '#2DC268',
