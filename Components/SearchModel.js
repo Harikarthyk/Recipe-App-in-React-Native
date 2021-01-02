@@ -8,6 +8,7 @@ function SearchModel({query, setQuery, setRecipes, setLoading}) {
     getRecipeByQuery(query.length === 0 ? 'All' : query, 0, 10)
       .then(({hits}) => {
         if (!hits) {
+          // keytool -genkey -v -keystore hari_recipe_app.keystore -alias hari_recipe_app-keyalg RSA -keysize 2048 -validity 10000
           return;
         }
         setRecipes(hits);
