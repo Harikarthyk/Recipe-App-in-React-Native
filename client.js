@@ -11,3 +11,19 @@ export const getRecipeByQuery = (query, from = 0, to = 10) => {
 };
 
 // const URL = `https://api.edamam.com/search?q=${query}&app_id=${APP_ID}&app_key=${APP_KEY}&from=0&to=3&calories=591-722&health=alcohol-free`;
+
+export const filterSearch = (
+  query,
+  from,
+  to,
+  caloriesFrom,
+  caloriesTo,
+  health,
+) => {
+  const URL = `https://api.edamam.com/search?q=${query}&app_id=${APP_ID}&app_key=${APP_KEY}&from=${from}&to=${to}&calories=${caloriesFrom}-${caloriesTo}&health=${health}`;
+  return fetch(URL, {
+    method: 'GET',
+  })
+    .then((res) => res.json())
+    .catch((error) => console.error(error));
+};

@@ -7,6 +7,7 @@ import {
   KeyboardAvoidingView,
   View,
   TouchableOpacity,
+  Dimensions,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 // import {useIsFocused} from '@react-navigation/native';
@@ -15,6 +16,10 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import {getRecipeByQuery} from '../client';
 import SearchModel from '../Components/SearchModel';
 import Recipe from '../Components/Recipe';
+import FilterModel from '../Components/FilterModel';
+
+const {width} = Dimensions.get('window');
+const {height} = Dimensions.get('window');
 
 const Home = () => {
   // const [to, setTo] = useState(5);
@@ -22,6 +27,8 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
   const [query, setQuery] = useState('');
   // const isFocused = useIsFocused();
+
+  const [showFilter, setShowFilter] = useState(false);
 
   useEffect(() => {
     getRecipeByQuery(query.length === 0 ? 'Trending' : query, 0, 20)
@@ -35,6 +42,7 @@ const Home = () => {
       })
       .catch((error) => console.error(error));
   }, []);
+
   return (
     <KeyboardAvoidingView
       // behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -45,22 +53,37 @@ const Home = () => {
         setLoading={setLoading}
         setRecipes={setRecipes}
       />
-      <View style={styles.contentContainer}>
+      <View style={[styles.contentContainer]}>
         <Text style={styles.title}>Recipiee</Text>
         <Recipe data={recipes} />
       </View>
-      <TouchableOpacity style={styles.filter}>
-        <Icon name="layers" color="#fff" size={20} />
-        <Text
-          style={{
-            color: 'white',
-            fontWeight: 'bold',
-            fontSize: 17,
-            marginLeft: 10,
-          }}>
-          Filter
-        </Text>
-      </TouchableOpacity>
+      {!showFilter ? (
+        <TouchableOpacity
+          onPress={() => {
+            setShowFilter(true);
+          }}
+          style={styles.filter}>
+          <Icon name="layers" color="#fff" size={20} />
+          <Text
+            style={{
+              color: 'white',
+              fontWeight: 'bold',
+              fontSize: 17,
+              marginLeft: 10,
+            }}>
+            Filter
+          </Text>
+        </TouchableOpacity>
+      ) : (
+        <Text></Text>
+      )}
+      {showFilter ? (
+        <View style={styles.modelFilter}>
+          <FilterModel setRecipes={setRecipes} setShowFilter={setShowFilter} />
+        </View>
+      ) : (
+        <Text></Text>
+      )}
     </KeyboardAvoidingView>
   );
 };
@@ -68,6 +91,7 @@ const Home = () => {
 const styles = StyleSheet.create({
   contianer: {
     padding: 20,
+    position: 'relative',
   },
   contentContainer: {
     paddingBottom: 10,
@@ -87,8 +111,19 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 15,
     alignItems: 'center',
+    zIndex: 1,
     elevation: 2,
     borderRadius: 10,
+  },
+  modelFilter: {
+    position: 'absolute',
+    backgroundColor: 'white',
+    bottom: -45,
+    width: width,
+    height: height / 1.4,
+    borderTopRightRadius: 50,
+    borderTopLeftRadius: 50,
+    elevation: 10,
   },
 });
 
