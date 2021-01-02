@@ -19,7 +19,6 @@ function FilterModel({setShowFilter, setRecipes}) {
             flex: 0.7,
             justifyContent: 'space-evenly',
             alignItems: 'center',
-
             flexDirection: 'row',
           }}>
           <Text
