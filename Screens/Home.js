@@ -58,7 +58,7 @@ const Home = () => {
       />
       <View style={[styles.contentContainer]}>
         <Text style={styles.title}>Recipiee</Text>
-        <Recipe data={recipes} />
+        {loading ? <Text>Loading...</Text> : <Recipe data={recipes} />}
       </View>
       {!showFilter ? (
         <TouchableOpacity

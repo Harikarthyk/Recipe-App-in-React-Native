@@ -48,8 +48,8 @@ function FilterModel({
           <Text
             style={[styles.text, {color: '#B7B7B7'}]}
             onPress={() => {
-              setCalories(1000);
-              setTo(20);
+              setCalories(1500);
+              setTo(10);
               ToastAndroid.showWithGravityAndOffset(
                 'Filter Reseted 👍🏼',
                 ToastAndroid.LONG,
@@ -57,6 +57,7 @@ function FilterModel({
                 15,
                 220,
               );
+              filterResult();
             }}>
             Reset
           </Text>
