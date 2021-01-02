@@ -27,7 +27,6 @@ function FilterModel({
     console.log('Helo');
     filterSearch(query, 0, to, 0, calories, health)
       .then((data) => {
-        console.log(data, query);
         const {hits} = data;
         if (!hits) {
           return;
