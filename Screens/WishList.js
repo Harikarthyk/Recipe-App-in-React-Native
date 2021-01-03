@@ -85,6 +85,8 @@ const WishList = () => {
                   backgroundColor: '#fff',
                   borderRadius: 9,
                   elevation: 9,
+                  alignItems: 'center',
+                  justifyContent: 'center',
                 }}>
                 <Image source={{uri: item.image}} style={[styles.image]} />
                 <View style={[{flex: 0.6}]}>

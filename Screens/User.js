@@ -22,17 +22,17 @@ const User = () => {
           This is an application that helps you in cooking dishes by providing
           you to know about nutrition in the dish, ingredients needed to cook,
           approximate cooking time, and more...
-          <View>
-            <Text style={[styles.text, {marginVertical: 5}]}>
-              Internet Connection is required
-            </Text>
-          </View>
         </Text>
         <View>
           <Text style={[styles.text]}>
             If your not getting your recipe wait for somee time because I am
             using a developer plan for my API 5 hits for one minute is allowed
             for the free plan
+          </Text>
+        </View>
+        <View>
+          <Text style={[styles.text, {marginVertical: 5}]}>
+            NOTE : Internet Connection is required
           </Text>
         </View>
       </View>

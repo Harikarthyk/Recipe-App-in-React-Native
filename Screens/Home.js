@@ -162,12 +162,13 @@ const styles = StyleSheet.create({
   modelFilter: {
     position: 'absolute',
     backgroundColor: 'white',
-    bottom: -45,
+    bottom: 0,
     width: width,
-    height: height / 1.2,
+    height: height / 1.5,
     borderTopRightRadius: 50,
     borderTopLeftRadius: 50,
     elevation: 10,
+    justifyContent: 'center',
     marginTop: 15,
   },
 });
