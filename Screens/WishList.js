@@ -153,7 +153,7 @@ const WishList = () => {
                         color: '#fff',
                         fontSize: 13,
                       }}>
-                      Remove from WishList
+                      Remove
                     </Text>
                   </TouchableOpacity>
                 </View>

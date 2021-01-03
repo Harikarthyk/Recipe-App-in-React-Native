@@ -4,7 +4,8 @@ import {
   Text,
   TouchableOpacity,
   View,
-  ToastAndroid,
+  ScrollView,
+  SafeAreaView,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {Slider} from 'react-native';
@@ -24,14 +25,12 @@ function FilterModel({
   setTo,
 }) {
   const filterResult = () => {
-    console.log('Helo');
     filterSearch(query, 0, to, 0, calories, health)
       .then((data) => {
         const {hits} = data;
         if (!hits) {
           return;
         }
-        console.log(hits);
         setRecipes(hits);
         setLoading(false);
         setShowFilter(false);
@@ -45,7 +44,6 @@ function FilterModel({
         <View
           style={{
             flex: 0.7,
-            justifyContent: 'space-evenly',
             alignItems: 'center',
             flexDirection: 'row',
           }}>
@@ -76,7 +74,7 @@ function FilterModel({
           <Icon name="close-sharp" color="#2DC268" size={25} />
         </TouchableOpacity>
       </View>
-      <View style={styles.content}>
+      <ScrollView style={styles.content}>
         <View style={styles.filter}>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <Text
@@ -147,9 +145,7 @@ function FilterModel({
             </Text>
           </View>
         </View>
-      </View>
-      <View style={styles.content}>
-        <View style={styles.filter}>
+        <View style={[styles.filter]}>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <Text
               style={{
@@ -198,7 +194,7 @@ function FilterModel({
             </View>
           </View>
           <Slider
-            style={{height: 50, borderWidth: 10}}
+            style={{height: 30}}
             minimumValue={5}
             step={1}
             value={to}
@@ -219,94 +215,91 @@ function FilterModel({
             </Text>
           </View>
         </View>
-      </View>
-      <View style={{padding: 20}}>
-        <Text
-          style={{
-            fontSize: 20,
-            color: 'black',
-            fontWeight: 'bold',
-          }}>
-          Choose Category
-        </Text>
-      </View>
-      <View
-        style={{
-          padding: 20,
-          flexDirection: 'row',
-          justifyContent: 'space-evenly',
-        }}>
-        <TouchableOpacity
-          style={[
-            styles.filterButton,
-            health === 'balanced'
-              ? {backgroundColor: '#2DC268'}
-              : {backgroundColor: '#B0B1B3'},
-          ]}
-          onPress={() => setHealth('balanced')}>
-          <Text style={styles.filterButtonText}>Balanced </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[
-            styles.filterButton,
-            health === 'vegetarian'
-              ? {backgroundColor: '#2DC268'}
-              : {backgroundColor: '#B0B1B3'},
-          ]}
-          onPress={() => setHealth('vegetarian')}>
-          <Text style={styles.filterButtonText}>Veg</Text>
-        </TouchableOpacity>
+        <View>
+          <Text
+            style={{
+              fontSize: 20,
+              color: 'black',
+              fontWeight: 'bold',
+            }}>
+            Choose Category
+          </Text>
+        </View>
+        <SafeAreaView>
+          <View
+            style={{
+              paddingBottom: 20,
+              flexWrap: 'wrap',
+              flexDirection: 'row',
+              justifyContent: 'space-evenly',
+            }}>
+            <TouchableOpacity
+              style={[
+                styles.filterButton,
+                health === 'balanced'
+                  ? {backgroundColor: '#2DC268'}
+                  : {backgroundColor: '#B0B1B3'},
+              ]}
+              onPress={() => setHealth('balanced')}>
+              <Text style={styles.filterButtonText}>Balanced </Text>
+            </TouchableOpacity>
 
-        <TouchableOpacity
-          style={[
-            styles.filterButton,
-            health === 'immuno-supportive'
-              ? {backgroundColor: '#2DC268'}
-              : {backgroundColor: '#B0B1B3'},
-            ,
-            {paddingHorizontal: 5},
-          ]}
-          onPress={() => setHealth('immuno-supportive')}>
-          <Text style={styles.filterButtonText}>Immune-Supportive</Text>
-        </TouchableOpacity>
-      </View>
-      <View
-        style={{
-          padding: 20,
-          flexDirection: 'row',
-          justifyContent: 'space-evenly',
-        }}>
-        <TouchableOpacity
-          style={[
-            styles.filterButton,
-            health === 'No-oil-added'
-              ? {backgroundColor: '#2DC268'}
-              : {backgroundColor: '#B0B1B3'},
-          ]}
-          onPress={() => setHealth('No-oil-added')}>
-          <Text style={styles.filterButtonText}>Oil-free</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[
-            styles.filterButton,
-            health === 'wheat-free'
-              ? {backgroundColor: '#2DC268'}
-              : {backgroundColor: '#B0B1B3'},
-          ]}
-          onPress={() => setHealth('wheat-free')}>
-          <Text style={styles.filterButtonText}>Wheat-free</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[
-            styles.filterButton,
-            health === 'dairy-free'
-              ? {backgroundColor: '#2DC268'}
-              : {backgroundColor: '#B0B1B3'},
-          ]}
-          onPress={() => setHealth('dairy-free')}>
-          <Text style={styles.filterButtonText}>Dairy-free</Text>
-        </TouchableOpacity>
-      </View>
+            <TouchableOpacity
+              style={[
+                styles.filterButton,
+                health === 'vegetarian'
+                  ? {backgroundColor: '#2DC268'}
+                  : {backgroundColor: '#B0B1B3'},
+              ]}
+              onPress={() => setHealth('vegetarian')}>
+              <Text style={styles.filterButtonText}>Veg</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={[
+                styles.filterButton,
+                health === 'immuno-supportive'
+                  ? {backgroundColor: '#2DC268'}
+                  : {backgroundColor: '#B0B1B3'},
+                ,
+                {paddingHorizontal: 5},
+              ]}
+              onPress={() => setHealth('immuno-supportive')}>
+              <Text style={styles.filterButtonText}>Immune-Supportive</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[
+                styles.filterButton,
+                health === 'No-oil-added'
+                  ? {backgroundColor: '#2DC268'}
+                  : {backgroundColor: '#B0B1B3'},
+              ]}
+              onPress={() => setHealth('No-oil-added')}>
+              <Text style={styles.filterButtonText}>Oil-free</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[
+                styles.filterButton,
+                health === 'wheat-free'
+                  ? {backgroundColor: '#2DC268'}
+                  : {backgroundColor: '#B0B1B3'},
+              ]}
+              onPress={() => setHealth('wheat-free')}>
+              <Text style={styles.filterButtonText}>Wheat-free</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[
+                styles.filterButton,
+                health === 'dairy-free'
+                  ? {backgroundColor: '#2DC268'}
+                  : {backgroundColor: '#B0B1B3'},
+              ]}
+              onPress={() => setHealth('dairy-free')}>
+              <Text style={styles.filterButtonText}>Dairy-free</Text>
+            </TouchableOpacity>
+          </View>
+        </SafeAreaView>
+      </ScrollView>
     </View>
   );
 }
@@ -314,17 +307,18 @@ function FilterModel({
 const styles = StyleSheet.create({
   container: {
     elevation: 2,
+    flex: 1,
   },
   header: {
     alignItems: 'center',
     backgroundColor: '#F2F2F2',
     // backgroundColor: 'red',
     padding: 32,
-    height: 162,
+    height: 1,
     borderTopRightRadius: 50,
     borderTopLeftRadius: 50,
     flexDirection: 'row',
-    flex: 1,
+    flex: 0.1,
     elevation: 5,
   },
   title: {
@@ -344,12 +338,16 @@ const styles = StyleSheet.create({
   },
   filterButton: {
     borderRadius: 10,
-    paddingHorizontal: 25,
-    paddingVertical: 10,
+    padding: 10,
+    margin: 10,
   },
   filterButtonText: {
     color: 'white',
+    zIndex: 1,
     fontWeight: 'bold',
+  },
+  filter: {
+    marginBottom: 20,
   },
 });
 

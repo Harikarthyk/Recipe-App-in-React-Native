@@ -164,10 +164,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     bottom: -45,
     width: width,
-    height: height / 1.4,
+    height: height / 1.2,
     borderTopRightRadius: 50,
     borderTopLeftRadius: 50,
     elevation: 10,
+    marginTop: 15,
   },
 });
 

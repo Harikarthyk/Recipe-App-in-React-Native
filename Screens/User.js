@@ -1,9 +1,9 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {ScrollView, StyleSheet, Text, View} from 'react-native';
 
 const User = () => {
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <View style={styles.subContent}>
         <Text style={styles.head}>App Name</Text>
         <Text style={styles.text}>Recipe App</Text>
@@ -45,7 +45,7 @@ const User = () => {
         <Text style={styles.head}>Contact</Text>
         <Text style={styles.text}>hari.jsmith494@gmail.com</Text>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
@@ -56,13 +56,13 @@ const styles = StyleSheet.create({
 
   subContent: {
     backgroundColor: 'white',
-    paddingVertical: 18,
+    paddingVertical: 10,
     paddingHorizontal: 25,
     borderBottomWidth: 1,
     borderBottomColor: 'grey',
   },
   head: {
-    fontSize: 18,
+    fontSize: 14,
 
     color: 'black',
     fontWeight: 'bold',
@@ -71,6 +71,7 @@ const styles = StyleSheet.create({
   text: {
     color: 'grey',
     fontWeight: 'bold',
+    fontSize: 12,
   },
 });
 
