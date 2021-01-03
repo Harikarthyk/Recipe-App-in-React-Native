@@ -84,7 +84,22 @@ const Home = () => {
             </Text>
           </View>
         ) : (
-          <Recipe data={recipes} />
+          <>
+            {recipes.length === 0 ? (
+              <View style={{height: height / 1.7, justifyContent: 'center'}}>
+                <Text
+                  style={{
+                    textAlign: 'center',
+                    fontWeight: 'bold',
+                    fontSize: 22,
+                  }}>
+                  No result Found : (
+                </Text>
+              </View>
+            ) : (
+              <Recipe data={recipes} />
+            )}
+          </>
         )}
       </View>
       {!showFilter ? (
