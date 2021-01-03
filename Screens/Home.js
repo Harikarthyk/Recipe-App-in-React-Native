@@ -40,8 +40,8 @@ const Home = () => {
           return;
         }
         // hits.push({type: 'more'});
-        // setRecipes(hits);
-        // setLoading(false);
+        setRecipes(hits);
+        setLoading(false);
       })
       .catch((error) => console.error(error));
   }, []);
@@ -72,6 +72,15 @@ const Home = () => {
                 fontSize: 19,
               }}>
               Note : Internet is required
+            </Text>
+            <Text
+              style={{
+                marginTop: 8,
+                textAlign: 'center',
+                fontWeight: 'bold',
+                fontSize: 19,
+              }}>
+              Wait for an minute
             </Text>
           </View>
         ) : (
