@@ -40,8 +40,8 @@ const Home = () => {
           return;
         }
         // hits.push({type: 'more'});
-        setRecipes(hits);
-        setLoading(false);
+        // setRecipes(hits);
+        // setLoading(false);
       })
       .catch((error) => console.error(error));
   }, []);
@@ -58,7 +58,25 @@ const Home = () => {
       />
       <View style={[styles.contentContainer]}>
         <Text style={[styles.title]}>Recipiee</Text>
-        {loading ? <Text>Loading...</Text> : <Recipe data={recipes} />}
+        {loading ? (
+          <View style={{height: height / 1.7, justifyContent: 'center'}}>
+            <Text
+              style={{textAlign: 'center', fontWeight: 'bold', fontSize: 22}}>
+              Loading...
+            </Text>
+            <Text
+              style={{
+                marginTop: 10,
+                textAlign: 'center',
+                fontWeight: 'bold',
+                fontSize: 19,
+              }}>
+              Note : Internet is required
+            </Text>
+          </View>
+        ) : (
+          <Recipe data={recipes} />
+        )}
       </View>
       {!showFilter ? (
         <TouchableOpacity

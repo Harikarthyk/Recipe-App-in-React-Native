@@ -49,7 +49,7 @@ function FilterModel({
             alignItems: 'center',
             flexDirection: 'row',
           }}>
-          <Text
+          {/* <Text
             style={[styles.text, {color: '#B7B7B7'}]}
             onPress={() => {
               setCalories(1500);
@@ -65,7 +65,7 @@ function FilterModel({
               filterResult();
             }}>
             Reset
-          </Text>
+          </Text> */}
           <Text style={[styles.text]} onPress={filterResult}>
             Go
           </Text>

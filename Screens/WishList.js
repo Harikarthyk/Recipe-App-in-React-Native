@@ -5,6 +5,7 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  ToastAndroid,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -35,6 +36,13 @@ const WishList = () => {
   const removeFromList = async (item) => {
     let newRecipes = recipe.filter((data) => data.label !== item);
     await AsyncStorage.setItem('@recipe_app_14', JSON.stringify(newRecipes));
+    ToastAndroid.showWithGravityAndOffset(
+      'Removed from Wish List',
+      ToastAndroid.LONG,
+      ToastAndroid.BOTTOM,
+      15,
+      220,
+    );
     getAllItem();
   };
 
