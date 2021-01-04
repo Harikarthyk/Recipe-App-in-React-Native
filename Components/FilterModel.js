@@ -5,7 +5,6 @@ import {
   TouchableOpacity,
   View,
   ScrollView,
-  SafeAreaView,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {Slider} from 'react-native';
@@ -25,6 +24,7 @@ function FilterModel({
   setTo,
 }) {
   const filterResult = () => {
+    setLoading(true);
     filterSearch(query, 0, to, 0, calories, health)
       .then((data) => {
         const {hits} = data;
@@ -64,9 +64,9 @@ function FilterModel({
             }}>
             Reset
           </Text> */}
-          <Text style={[styles.text]} onPress={filterResult}>
-            Go
-          </Text>
+          <TouchableOpacity onPress={filterResult}>
+            <Text style={[styles.text]}>Go</Text>
+          </TouchableOpacity>
         </View>
         <TouchableOpacity
           style={{position: 'absolute', right: 20, top: 20}}

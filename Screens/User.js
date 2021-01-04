@@ -22,7 +22,9 @@ const User = () => {
           This is an application that helps you in cooking dishes by providing
           you to know about nutrition in the dish, ingredients needed to cook,
           approximate cooking time, and more...
+
         </Text>
+        {/* https://clipchamp.com/watch/og3uJO6JS2z  */}
         <View>
           <Text style={[styles.text]}>
             If your not getting your recipe wait for somee time because I am
