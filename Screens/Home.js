@@ -1,4 +1,3 @@
-//Import Dependencies
 import React, {useEffect, useState} from 'react';
 import 'react-native-gesture-handler';
 import {
@@ -10,25 +9,22 @@ import {
   Dimensions,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-// import {useIsFocused} from '@react-navigation/native';
 
-//Import Components
 import {getRecipeByQuery} from '../client';
 import SearchModel from '../Components/SearchModel';
 import Recipe from '../Components/Recipe';
 import FilterModel from '../Components/FilterModel';
+
 const {width} = Dimensions.get('window');
 const {height} = Dimensions.get('window');
 
 const Home = () => {
-  // const [to, setTo] = useState(5);
   const [recipes, setRecipes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [query, setQuery] = useState('');
   const [calories, setCalories] = useState(1500);
   const [health, setHealth] = useState('balanced');
   const [to, setTo] = useState(10);
-  // const isFocused = useIsFocused();
 
   const [showFilter, setShowFilter] = useState(false);
 
@@ -38,7 +34,6 @@ const Home = () => {
         if (!hits) {
           return;
         }
-        // hits.push({type: 'more'});
         setRecipes(hits);
         setLoading(false);
       })
@@ -150,18 +145,15 @@ const styles = StyleSheet.create({
     flex: 1,
     height: height - 52,
     justifyContent: 'space-evenly',
-    // backgroundColor: 'red',
-    // alignItems: 'flex-start',
   },
   contentContainer: {
-    // paddingBottom: 10,
     justifyContent: 'center',
   },
   title: {
     fontWeight: 'bold',
     fontSize: 28,
     marginLeft: 12,
-    marginBottom: 8,
+    marginBottom: 7,
   },
   filter: {
     backgroundColor: '#2DC268',
@@ -170,7 +162,6 @@ const styles = StyleSheet.create({
     marginLeft: 12,
     paddingVertical: 10,
     paddingHorizontal: 15,
-    // alignItems: 'center',
     zIndex: 1,
     justifyContent: 'center',
     elevation: 2,
