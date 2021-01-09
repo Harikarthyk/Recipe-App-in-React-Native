@@ -22,7 +22,6 @@ const User = () => {
           This is an application that helps you in cooking dishes by providing
           you to know about nutrition in the dish, ingredients needed to cook,
           approximate cooking time, and more...
-
         </Text>
         {/* https://clipchamp.com/watch/og3uJO6JS2z  */}
         <View>
@@ -39,9 +38,13 @@ const User = () => {
         </View>
       </View>
 
-      <View style={styles.subContent}>
+      <View
+        style={styles.subContent}
+        onPress={() => Linking.openURL('www.harikarthyk.xyz')}>
         <Text style={styles.head}>Developer</Text>
-        <Text style={styles.text}>@Hari_karthyk (www.harikarthyk.xyz)</Text>
+        <Text style={[styles.text, {color: 'blue'}]}>
+          @Hari_karthyk <Text>(www.harikarthyk.xyz)</Text>
+        </Text>
       </View>
       <View style={styles.subContent}>
         <Text style={styles.head}>Contact</Text>
