@@ -1,5 +1,5 @@
 import React from 'react';
-import {ScrollView, StyleSheet, Text, View} from 'react-native';
+import {ScrollView, StyleSheet, Text, View, Linking} from 'react-native';
 
 const User = () => {
   return (
@@ -26,9 +26,9 @@ const User = () => {
         {/* https://clipchamp.com/watch/og3uJO6JS2z  */}
         <View>
           <Text style={[styles.text]}>
-            If your not getting your recipe wait for somee time because I am
+            If your not getting your recipe wait for some time because I am
             using a developer plan for my API 5 hits for one minute is allowed
-            for the free plan
+            for the free plan.
           </Text>
         </View>
         <View>
